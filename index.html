@@ -81,7 +81,6 @@
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* Beating Heart Animation */
         .beating-heart { display: inline-block; animation: heartBeat 1.2s infinite; }
         @keyframes heartBeat {
             0% { transform: scale(1); }
@@ -94,8 +93,8 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="music.mp3?v=1" type="audio/mpeg">
+    <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div id="page0" class="card">
@@ -110,10 +109,8 @@
         <div style="border: 3px solid var(--black); display: inline-block; border-radius: 10px; overflow: hidden; background: white;">
             <img id="main-gif" src="gif0.gif" style="width: 180px; height: auto; display: block;">
         </div>
-        
         <h1>Will You Be My Valentine?</h1>
         <p id="reject-msg">Try clicking No... if you dare</p>
-
         <div class="btn-container">
             <button id="yesBtn" onclick="goToPage2()">Yes</button>
             <button id="noBtn" onmouseover="dodgeNo()" onclick="dodgeNo()">No</button>
@@ -124,28 +121,20 @@
     <div id="page2" class="card hidden">
         <h1>YEHEEEEEY! <span class="beating-heart">❤️</span></h1>
         <p style="font-weight: bold; margin-bottom: 20px;">I WILL BE YOUR VALENTINE FOREVER BEBEB! ❤️</p>
-    
         <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
             <img src="us1.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; object-fit: cover; aspect-ratio: 1/1;">
             <img src="us2.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; object-fit: cover; aspect-ratio: 1/1;">
         </div>
-
         <div style="background: rgba(255, 255, 255, 0.6); padding: 15px; border: 2px solid black; border-radius: 10px; margin-bottom: 20px; max-height: 180px; overflow-y: auto;">
-            <p style="text-align: left; font-weight: bold; font-size: 0.95rem; color: #333; margin: 0 0 10px 0;">
-                Dear Nikki,
-            </p>
+            <p style="text-align: left; font-weight: bold; font-size: 0.95rem; color: #333; margin: 0 0 10px 0;">Dear Nikki,</p>
             <p style="text-align: justify; text-indent: 30px; font-weight: bold; font-size: 0.95rem; line-height: 1.5; color: #333; margin: 0;">
                 Thank you for your continuous love and care, eto na naman tayo another Valentine's day and another lamon WHAHAHAHAHAHA. I wanted to say that i'm always here for you whenever you need me for your arte series, iyakan series, goofy time, and rant series mo WHAHAHAHAHA kaya siya series kasi sa iba ibang bagay lagi yung sinasabi/ginagawa mo na nakakatuwa pakinggan. I love you baby and mag ingat palagi mwa! 
             </p>
-            
             <div id="signature-container" style="text-align: right; margin-top: 15px; cursor: pointer;" onclick="revealSignature()">
                 <p id="reveal-hint" style="font-size: 0.8rem; color: #888; font-style: italic; margin: 0;">(Tap to see who loves you...)</p>
-                <p id="roy-signature" style="font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--main-pink); margin: 0; display: none;">
-                    Love, Roy
-                </p>
+                <p id="roy-signature" style="font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--main-pink); margin: 0; display: none;">Love, Roy</p>
             </div>
         </div>
-
         <button onclick="goToPage3()" style="width: 100%;">Saan punta?</button>
     </div>
 
@@ -160,30 +149,26 @@
     <script>
         let count = 0;
         let isRejected = false;
-        const music = document.getElementById('bgMusic');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // PRE-LOAD TRICK: Start loading the file as soon as the script runs
+        window.addEventListener('load', () => {
+            bgMusic.load();
+        });
 
         const gifs = ["gif0.gif", "gif1.gif", "gif2.gif", "gif3.gif", "gif4.gif"];
         const texts = ["Sigurado ka?", "Legit ba Wais??", "BRUH", "Hala, bat lumalayo?", "HELL NAHHHH!!!"];
 
         function startSurprise() {
-    const bgMusic = document.getElementById('bgMusic');
-    
-    // Explicitly load it first, then play
-    bgMusic.load(); 
-    
-    var playPromise = bgMusic.play();
+            // Aggressive Play attempt
+            bgMusic.muted = false; 
+            bgMusic.play().catch(e => {
+                console.log("Browser still blocking, but we tried!");
+            });
 
-    if (playPromise !== undefined) {
-        playPromise.then(_ => {
-            console.log("Playback started!");
-        }).catch(error => {
-            console.log("Playback failed: " + error);
-        });
-    }
-
-    document.getElementById('page0').classList.add('hidden');
-    document.getElementById('page1').classList.remove('hidden');
-}
+            document.getElementById('page0').classList.add('hidden');
+            document.getElementById('page1').classList.remove('hidden');
+        }
 
         function dodgeNo() {
             count++;
@@ -192,10 +177,8 @@
             const noBtn = document.getElementById('noBtn');
             const gif = document.getElementById('main-gif');
             const msg = document.getElementById('reject-msg');
-
             gif.src = gifs[Math.min(count, gifs.length - 1)];
             msg.innerText = texts[Math.min(count - 1, texts.length - 1)];
-
             noBtn.style.position = 'absolute';
             const x = Math.random() * (window.innerWidth - 200) - (window.innerWidth / 2 - 100);
             const y = Math.random() * (window.innerHeight - 200) - (window.innerHeight / 2 - 100);
@@ -206,8 +189,6 @@
             isRejected = false;
             document.getElementById('page1').classList.add('hidden');
             document.getElementById('page2').classList.remove('hidden');
-
-            // Initial Confetti Burst
             var end = Date.now() + (3 * 1000);
             (function frame() {
                 confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ffffff'] });
@@ -219,14 +200,7 @@
         function revealSignature() {
             document.getElementById('reveal-hint').classList.add('hidden');
             document.getElementById('roy-signature').style.display = 'block';
-            
-            // Signature Reveal Confetti Pop
-            confetti({
-                particleCount: 50,
-                spread: 70,
-                origin: { y: 0.8 },
-                colors: ['#ff4d6d', '#ffffff']
-            });
+            confetti({ particleCount: 50, spread: 70, origin: { y: 0.8 }, colors: ['#ff4d6d', '#ffffff'] });
         }
 
         function goToPage3() {
@@ -250,7 +224,3 @@
     </script>
 </body>
 </html>
-
-
-
-
