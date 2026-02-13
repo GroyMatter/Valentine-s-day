@@ -6,94 +6,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root {
-            --pink-bg: #ffebee;
-            --main-pink: #ff4d6d;
-            --retro-green: #2ecc71;
-            --black: #1a1a1a;
-        }
-
-        body { 
-            margin: 0; padding: 0; 
-            font-family: 'Quicksand', sans-serif; 
-            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            height: 100vh; display: flex; justify-content: center; align-items: center;
-            overflow: hidden; text-align: center;
-        }
-
-        .card {
-            background: #fdf6f0;
-            padding: 30px;
-            border: 4px solid var(--black);
-            border-radius: 15px;
-            box-shadow: 8px 8px 0px var(--black);
-            width: 85%; max-width: 400px;
-            z-index: 10;
-        }
-
-        h1 { 
-            font-family: 'Fredoka One', cursive; 
-            color: var(--main-pink); 
-            font-size: 2.2rem; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 15px 0;
-        }
-
-        #reject-msg { font-weight: bold; color: var(--black); min-height: 1.5rem; }
-
-        .btn-container { 
-            display: flex; justify-content: center; gap: 20px; 
-            margin-top: 25px; position: relative; height: 60px;
-        }
-
-        button { 
-            background: var(--retro-green); 
-            color: var(--black); 
-            padding: 10px 35px; 
-            border: 3px solid var(--black);
-            border-radius: 10px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.2rem; 
-            cursor: pointer; 
-            box-shadow: 4px 4px 0px var(--black);
-            transition: 0.1s;
-        }
-        
-        button:active { 
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--black);
-        }
-
-        #noBtn { 
-            background: #95a5a6; color: var(--black); 
-            padding: 10px 30px; border: 3px solid var(--black);
-            border-radius: 10px; font-family: 'Fredoka One', cursive;
-            font-size: 1.2rem; transition: 0.2s ease;
-            box-shadow: 4px 4px 0px var(--black);
-        }
-
+        :root { --main-pink: #ff4d6d; --retro-green: #2ecc71; --black: #1a1a1a; }
+        body { margin: 0; padding: 0; font-family: 'Quicksand', sans-serif; background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%); height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; text-align: center; }
+        .card { background: #fdf6f0; padding: 30px; border: 4px solid var(--black); border-radius: 15px; box-shadow: 8px 8px 0px var(--black); width: 85%; max-width: 400px; z-index: 10; }
+        h1 { font-family: 'Fredoka One', cursive; color: var(--main-pink); font-size: 2.2rem; letter-spacing: 2px; text-transform: uppercase; margin: 15px 0; }
+        .btn-container { display: flex; justify-content: center; gap: 20px; margin-top: 25px; position: relative; height: 60px; }
+        button { background: var(--retro-green); color: var(--black); padding: 10px 35px; border: 3px solid var(--black); border-radius: 10px; font-family: 'Fredoka One', cursive; font-size: 1.2rem; cursor: pointer; box-shadow: 4px 4px 0px var(--black); transition: 0.1s; }
+        #noBtn { background: #95a5a6; color: var(--black); padding: 10px 30px; border: 3px solid var(--black); border-radius: 10px; font-family: 'Fredoka One', cursive; font-size: 1.2rem; transition: 0.2s ease; box-shadow: 4px 4px 0px var(--black); }
         .hidden { display: none !important; }
-
         .emoji { position: absolute; pointer-events: none; animation: float 4s linear infinite; }
-        @keyframes float {
-            0% { transform: translateY(100vh) scale(1); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
+        @keyframes float { 0% { transform: translateY(100vh) scale(1); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
         .beating-heart { display: inline-block; animation: heartBeat 1.2s infinite; }
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.3); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
-        }
+        @keyframes heartBeat { 0%, 30%, 60% { transform: scale(1); } 15% { transform: scale(1.3); } 45% { transform: scale(1.15); } }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+    <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -143,7 +72,7 @@
         <p><b>When:</b> February 14, 2026</p>
         <p><b>Where:</b> [Food Club Festival Mall Alabang]</p>
         <img src="tempura.jpg" style="width: 100%; border: 3px solid black; border-radius: 15px; margin-top: 15px;">
-        <p style="margin-top: 15px; font-style: italic;">Napabody wave ako dun ah WHAHAHAHHAHA ready ka na ba kumain nang maraming tempura? nyahahaha mwa❤️</p>
+        <p style="margin-top: 15px; font-style: italic;">Napabody wave ako dun ah WHAHAHHAHA ready ka na ba kumain nang maraming tempura? nyahahaha mwa❤️</p>
     </div>
 
     <script>
@@ -151,28 +80,14 @@
         let isRejected = false;
         const bgMusic = document.getElementById('bgMusic');
 
-        // PRE-LOAD TRICK: Start loading the file as soon as the script runs
-        window.addEventListener('load', () => {
-            bgMusic.load();
-        });
-
-        const gifs = ["gif0.gif", "gif1.gif", "gif2.gif", "gif3.gif", "gif4.gif"];
-        const texts = ["Sigurado ka?", "Legit ba Wais??", "BRUH", "Hala, bat lumalayo?", "HELL NAHHHH!!!"];
-
         function startSurprise() {
-            // Aggressive Play attempt
-            bgMusic.muted = false; 
-            bgMusic.play().catch(e => {
-                console.log("Browser still blocking, but we tried!");
-            });
-
+            bgMusic.play().catch(e => console.log("Playback error:", e));
             document.getElementById('page0').classList.add('hidden');
             document.getElementById('page1').classList.remove('hidden');
         }
 
         function dodgeNo() {
-            count++;
-            isRejected = true;
+            count++; isRejected = true;
             document.getElementById('attempt-count').innerText = count;
             const noBtn = document.getElementById('noBtn');
             const gif = document.getElementById('main-gif');
