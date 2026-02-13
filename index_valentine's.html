@@ -3,7 +3,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Bebeb ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --pink-bg: #ffebee;
@@ -79,6 +80,16 @@
             0% { transform: translateY(100vh) scale(1); opacity: 1; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
+
+        /* Beating Heart Animation */
+        .beating-heart { display: inline-block; animation: heartBeat 1.2s infinite; }
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -111,21 +122,39 @@
     </div>
 
     <div id="page2" class="card hidden">
-        <h1>YEHEEEEEY!</h1>
-        <p>I WILL BE YOUR VALENTINE FOREVER BEBEB! ❤️</p>
-        <div style="margin: 15px 0;">
-            <img src="us1.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; margin: 2%;">
-            <img src="us2.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; margin: 2%;">
+        <h1>YEHEEEEEY! <span class="beating-heart">❤️</span></h1>
+        <p style="font-weight: bold; margin-bottom: 20px;">I WILL BE YOUR VALENTINE FOREVER BEBEB! ❤️</p>
+    
+        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+            <img src="us1.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; object-fit: cover; aspect-ratio: 1/1;">
+            <img src="us2.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; object-fit: cover; aspect-ratio: 1/1;">
         </div>
-        <button onclick="goToPage3()">Saan punta?</button>
+
+        <div style="background: rgba(255, 255, 255, 0.6); padding: 15px; border: 2px solid black; border-radius: 10px; margin-bottom: 20px; max-height: 180px; overflow-y: auto;">
+            <p style="text-align: left; font-weight: bold; font-size: 0.95rem; color: #333; margin: 0 0 10px 0;">
+                Dear Nikki,
+            </p>
+            <p style="text-align: justify; text-indent: 30px; font-weight: bold; font-size: 0.95rem; line-height: 1.5; color: #333; margin: 0;">
+                Thank you for your continuous love and care, eto na naman tayo another Valentine's day and another lamon WHAHAHAHAHAHA. I wanted to say that i'm always here for you whenever you need me for your arte series, iyakan series, goofy time, and rant series mo WHAHAHAHAHA kaya siya series kasi sa iba ibang bagay lagi yung sinasabi/ginagawa mo na nakakatuwa pakinggan. I love you baby and mag ingat palagi mwa! 
+            </p>
+            
+            <div id="signature-container" style="text-align: right; margin-top: 15px; cursor: pointer;" onclick="revealSignature()">
+                <p id="reveal-hint" style="font-size: 0.8rem; color: #888; font-style: italic; margin: 0;">(Tap to see who loves you...)</p>
+                <p id="roy-signature" style="font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--main-pink); margin: 0; display: none;">
+                    Love, Roy
+                </p>
+            </div>
+        </div>
+
+        <button onclick="goToPage3()" style="width: 100%;">Saan punta?</button>
     </div>
 
     <div id="page3" class="card hidden">
         <h1>Our Date Details</h1>
         <p><b>When:</b> February 14, 2026</p>
-        <p><b>Where:</b> [Name of Place/Wingzilla?]</p>
-        <img src="place-image.jpg" style="width: 100%; border: 3px solid black; border-radius: 15px; margin-top: 15px;">
-        <p style="margin-top: 15px; font-style: italic;">Handa na ba ang tummy mo? ❤️</p>
+        <p><b>Where:</b> [Food Club Festival Mall Alabang]</p>
+        <img src="tempura.jpg" style="width: 100%; border: 3px solid black; border-radius: 15px; margin-top: 15px;">
+        <p style="margin-top: 15px; font-style: italic;">Napabody wave ako dun ah WHAHAHAHHAHA ready ka na ba kumain nang maraming tempura? nyahahaha mwa❤️</p>
     </div>
 
     <script>
@@ -163,6 +192,27 @@
             isRejected = false;
             document.getElementById('page1').classList.add('hidden');
             document.getElementById('page2').classList.remove('hidden');
+
+            // Initial Confetti Burst
+            var end = Date.now() + (3 * 1000);
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ffffff'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ffffff'] });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        function revealSignature() {
+            document.getElementById('reveal-hint').classList.add('hidden');
+            document.getElementById('roy-signature').style.display = 'block';
+            
+            // Signature Reveal Confetti Pop
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#ff4d6d', '#ffffff']
+            });
         }
 
         function goToPage3() {
