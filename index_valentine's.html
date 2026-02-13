@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; text-align: center; background-color: #ffe6e6; padding: 20px; }
+        .container { margin-top: 50px; }
+        #main-image { width: 200px; border-radius: 15px; }
+        .buttons { margin-top: 20px; position: relative; height: 100px; }
+        button { padding: 15px 25px; font-size: 18px; border: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        #yesBtn { background-color: #ff4d4d; color: white; }
+        #noBtn { background-color: #808080; color: white; position: absolute; }
+        .hidden { display: none; }
+        .gallery img { width: 45%; margin: 5px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="question-section">
+        <img id="main-image" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6&ep=v1_gifs_search&rid=giphy.gif" alt="Cute Bear">
+        <h1 id="status-text">Will you be my Valentine?</h1>
+        <p id="reject-display"></p>
+        <div class="buttons">
+            <button id="yesBtn" onclick="accept()">Yes</button>
+            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+    </div>
+
+    <div id="success-section" class="hidden">
+        <h1>YEHEEEEEY I WILL BE YOUR VALENTINE FOREVER BEBEB!</h1>
+        <div class="gallery">
+            <img src="your-pic1.jpg" alt="Us">
+            <img src="your-pic2.jpg" alt="Us again">
+        </div>
+        <p>You make every day special. I love you!</p>
+        <button onclick="showDetails()" style="background: #ff4d4d; color: white;">Saan punta?</button>
+    </div>
+
+    <div id="details-section" class="hidden">
+        <h2>Our Date Details</h2>
+        <p>📅 <strong>Date:</strong> February 14, 2026</p>
+        <p>📍 <strong>Place:</strong> [Name of Restaurant/Place]</p>
+        <img src="place-image.jpg" style="width: 80%; border-radius: 10px;">
+    </div>
+
+    <script>
+        let rejectCount = 0;
+        const messages = ["Are you sure?", "Pikirin mo mabuti!", "Baby please?", "I'll be sad...", "Strictly no for No!"];
+
+        function moveButton() {
+            rejectCount++;
+            document.getElementById('reject-display').innerText = `Rejection count: ${rejectCount}`;
+            document.getElementById('status-text').innerText = messages[Math.min(rejectCount - 1, messages.length - 1)];
+            
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function accept() {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('success-section').classList.remove('hidden');
+        }
+
+        function showDetails() {
+            document.getElementById('details-section').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
