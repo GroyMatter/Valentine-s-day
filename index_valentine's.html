@@ -32,14 +32,14 @@
 
         h1 { 
             font-family: 'Fredoka One', cursive; 
-            color: var(--black); 
+            color: var(--main-pink); 
             font-size: 2.2rem; 
             letter-spacing: 2px;
             text-transform: uppercase;
             margin: 15px 0;
         }
 
-        #reject-msg { font-weight: bold; color: var(--main-pink); min-height: 1.5rem; }
+        #reject-msg { font-weight: bold; color: var(--black); min-height: 1.5rem; }
 
         .btn-container { 
             display: flex; justify-content: center; gap: 20px; 
@@ -110,16 +110,34 @@
         <p style="font-size: 0.8rem; margin-top: 20px;">Attempts: <span id="attempt-count">0</span></p>
     </div>
 
+    <div id="page2" class="card hidden">
+        <h1>YEHEEEEEY!</h1>
+        <p>I WILL BE YOUR VALENTINE FOREVER BEBEB! ❤️</p>
+        <div style="margin: 15px 0;">
+            <img src="us1.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; margin: 2%;">
+            <img src="us2.jpg" style="width: 45%; border: 3px solid black; border-radius: 10px; margin: 2%;">
+        </div>
+        <button onclick="goToPage3()">Saan punta?</button>
+    </div>
+
+    <div id="page3" class="card hidden">
+        <h1>Our Date Details</h1>
+        <p><b>When:</b> February 14, 2026</p>
+        <p><b>Where:</b> [Name of Place/Wingzilla?]</p>
+        <img src="place-image.jpg" style="width: 100%; border: 3px solid black; border-radius: 15px; margin-top: 15px;">
+        <p style="margin-top: 15px; font-style: italic;">Handa na ba ang tummy mo? ❤️</p>
+    </div>
+
     <script>
         let count = 0;
         let isRejected = false;
         const music = document.getElementById('bgMusic');
 
         const gifs = ["gif0.gif", "gif1.gif", "gif2.gif", "gif3.gif", "gif4.gif"];
-        const texts = ["Sigurado ka?", "Wait, rethink please!", "Bebab naman eh...", "Hala, bat lumalayo?", "NO WAY!!"];
+        const texts = ["Sigurado ka?", "Legit ba Wais??", "BRUH", "Hala, bat lumalayo?", "HELL NAHHHH!!!"];
 
         function startSurprise() {
-            music.play().catch(e => console.log("Audio play blocked")); // Start music on click
+            music.play().catch(e => console.log("Music play blocked by browser"));
             document.getElementById('page0').classList.add('hidden');
             document.getElementById('page1').classList.remove('hidden');
         }
@@ -144,13 +162,20 @@
         function goToPage2() {
             isRejected = false;
             document.getElementById('page1').classList.add('hidden');
-            // ... show page 2 logic
+            document.getElementById('page2').classList.remove('hidden');
+        }
+
+        function goToPage3() {
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.remove('hidden');
         }
 
         function createEmoji() {
             const emoji = document.createElement('div');
             emoji.classList.add('emoji');
-            const list = isRejected ? ['💔', '😢', '😭'] : ['❤️', '💖', '🥰'];
+            const happy = ['❤️', '💖', '🥰', '💕'];
+            const sad = ['💔', '😢', '😭', '🥺'];
+            const list = isRejected ? sad : happy;
             emoji.innerHTML = list[Math.floor(Math.random() * list.length)];
             emoji.style.left = Math.random() * 100 + 'vw';
             emoji.style.fontSize = (Math.random() * 20 + 15) + 'px';
