@@ -94,8 +94,8 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3?v=1" type="audio/mpeg">
     </audio>
 
     <div id="page0" class="card">
@@ -166,14 +166,20 @@
         const texts = ["Sigurado ka?", "Legit ba Wais??", "BRUH", "Hala, bat lumalayo?", "HELL NAHHHH!!!"];
 
         function startSurprise() {
-    // This ensures we grab the audio element exactly when the button is clicked
-    const bgMusic = document.getElementById('bgMusic'); 
+    const bgMusic = document.getElementById('bgMusic');
     
-    bgMusic.play().then(() => {
-        console.log("Music is playing!");
-    }).catch(e => {
-        console.error("Music playback failed:", e);
-    });
+    // Explicitly load it first, then play
+    bgMusic.load(); 
+    
+    var playPromise = bgMusic.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            console.log("Playback started!");
+        }).catch(error => {
+            console.log("Playback failed: " + error);
+        });
+    }
 
     document.getElementById('page0').classList.add('hidden');
     document.getElementById('page1').classList.remove('hidden');
@@ -244,6 +250,7 @@
     </script>
 </body>
 </html>
+
 
 
 
