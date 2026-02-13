@@ -166,10 +166,18 @@
         const texts = ["Sigurado ka?", "Legit ba Wais??", "BRUH", "Hala, bat lumalayo?", "HELL NAHHHH!!!"];
 
         function startSurprise() {
-            music.play().catch(e => console.log("Music play blocked by browser"));
-            document.getElementById('page0').classList.add('hidden');
-            document.getElementById('page1').classList.remove('hidden');
-        }
+    // This ensures we grab the audio element exactly when the button is clicked
+    const bgMusic = document.getElementById('bgMusic'); 
+    
+    bgMusic.play().then(() => {
+        console.log("Music is playing!");
+    }).catch(e => {
+        console.error("Music playback failed:", e);
+    });
+
+    document.getElementById('page0').classList.add('hidden');
+    document.getElementById('page1').classList.remove('hidden');
+}
 
         function dodgeNo() {
             count++;
@@ -236,5 +244,6 @@
     </script>
 </body>
 </html>
+
 
 
